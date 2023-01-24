@@ -1,0 +1,2 @@
+# MashuleApp
+App for schools
