@@ -69,6 +69,7 @@ ScreenManager:
                         on_release: app.menu.open()
 
             MDCard:
+                id: schholswidget
                 md_bg_color: 1, 1, 1, .6
                 radius: [50, 50, 0, 0]
                 padding: dp(10)
@@ -92,7 +93,7 @@ ScreenManager:
                                     MDBoxLayout:
                                         adaptive_height: True
                                         MDLabel:
-                                            text:"school" [0:7] + ' ...' 
+                                            id: schname
                                             font_style: "Body1"
                                             size_hint_y: None
                                             height: "10dp"
@@ -788,7 +789,8 @@ ScreenManager:
                                     font_style: 'Body1' 
 
                                 MDLabel:
-                                    text: '+254012345678'
+                                    id:contact
+                                    #text: '+254012345678'
                                     pos_hint: {"center_x": .95, "center_y": .5}
                                     adaptive_size: True
                                     text_color: 'white'

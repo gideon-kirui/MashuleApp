@@ -121,7 +121,6 @@ class MashuleApp(MDApp):
                 type="simple",
                 auto_dismiss=True)
             alert.open()
-
             self.set_regform_empty()
         
         else:
@@ -158,6 +157,7 @@ class MashuleApp(MDApp):
         toast(schoolname + ', added succesfuly')
         self.set_addschoolform_empty()
         self.Navigate_t0_homepage()
+
 
     dialog = None
     #################### Logout Dialog ###############
