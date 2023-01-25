@@ -1,5 +1,5 @@
 from kivymd.app import MDApp
-#import sqlite3
+import mysql.connector
 from firebase import firebase
 from kivy.lang.builder import Builder
 from kivy_garden.mapview import MapView, MapMarkerPopup
@@ -15,10 +15,19 @@ from kivy.properties import StringProperty
 from kivymd_extensions.sweetalert import SweetAlert
 from kivymd.uix.relativelayout import MDRelativeLayout
 from kivy.core.window import Window
-import mysql
 
 Window.size = (320, 680)
 
+
+mashuledb = mysql.connector.connect(
+    host="localhost", #"11.106.0.13",
+    user="gideon", #'marshaa1_mshule',
+    passwd="gen@mic1", #'mashule@cpanel',
+    database="Mashule",#'marshaa1_MashuleApp',
+    auth_plugin='mysql_native_password'
+)
+
+mashulecursor = mashuledb.cursor()
 
 class SignupDC(BoxLayout):
     pass
@@ -42,7 +51,6 @@ class AddactivityInt(BoxLayout):
 class RessPassDC(BoxLayout):
     pass
 
-firebase = firebase.FirebaseApplication('https://mashule-47283-default-rtdb.firebaseio.com/, None')
 
 class MashuleApp(MDApp):
     def __init__(self,  **kwargs):
@@ -99,23 +107,23 @@ class MashuleApp(MDApp):
 
     #################### Log In and SignUp ###############
     def add_user(self, regname, regpass):
-
-        users = {'name': regname, 'password': regpass},
+        
+        #users = [{'name': regname, 'password': regpass}]
 
         regpsscmp = self.root.ids.regpass.text
         regpassconcmp = self.root.ids.regpasscon.text
 
         if regpsscmp == regpassconcmp:
-            firebase.post('/Users', users)
-
+            mashulecursor.execute('INSERT INTO Users (name, password) VALUES (%s,%s)',(regname, regpass))
+            mashuledb.commit()
             alert = SweetAlert(title="Registration Sucesfull",
-                text="User Registered Successfully",
+                text=f"{regname} Registered Successfully",
                 type="simple",
                 auto_dismiss=True)
             alert.open()
 
-            self.Navigate_t0_homepage()
-
+            self.set_regform_empty()
+        
         else:
             alert = SweetAlert(title="Passwords Didn't match",
                 text="Kindly Check the two passwords and Try again!",
@@ -123,49 +131,32 @@ class MashuleApp(MDApp):
                 auto_dismiss=True)
             alert.open()
 
-    def user_login(self):
+    def user_login(self, username, userpass):
 
-        username = self.root.ids.username.text
-        userpasword = self.root.ids.userpass.text
+        mashulecursor.execute('SELECT * FROM Users where name=%s AND password=%s', (username, userpass))
+        user = mashulecursor.fetchone()
 
-        regusers = firebase.get('/Users', '')
+        if user:
+            alert = SweetAlert(title="Log In Succesfull",
+                text=f"Hi {username} Welcome To Mashule App. Let's Get Educated.",
+                type="simple",
+                auto_dismiss=True)
+            alert.open()
+            self.Navigate_t0_homepage()
+            self.set_login_form_empty()
 
-        for i in regusers.keys():
-            if i (str['name']) == username and i (str['password']) == userpasword:
-                    toast(username + ', you have login succesfully')
-                    self.Navigate_t0_homepage()
+        else:
+            toast('Wrong Credentials, Try again')
+            self.set_login_form_empty()
+         
+        
 
-            else:
-                alert = SweetAlert(title="Incorect Logins",
-                    text="Kindly Check your credentials and Try again!",
-                    type="alert",
-                    auto_dismiss=True)
-                alert.open()
+    def add_school(self, schoolname, schooladress, schoolweb, schoolemail, schoolcontact, schoolcat, schoolLevel):
 
-    def add_school(self):
-
-        schoolname = self.root.ids.schoolname
-        schooladress = self.root.ids.schooladress
-        schoolweb = self.root.ids.schoolweb
-        schoolemail = self.root.ids.schoolemail
-        schoolcontact = self.root.ids.schoolcontact
-        schoolcat = self.root.ids.schoolcat
-        schoolLevel = self.root.ids.schoolLevel
-
-        shools = {
-            'schnm': schoolname,
-            'schadrs': schooladress,
-            'schwb': schoolweb,
-            'scheml': schoolemail,
-            'schcnt': schoolcontact,
-            'schcat': schoolcat,
-            'schllvl': schoolLevel,
-        }
-
-        print(shools)
-
-        firebase.post('/Schools', shools)
+        mashulecursor.execute('INSERT INTO Schools (name, address, website, email, contact, category, level) VALUES (%s,%s,%s,%s,%s,%s,%s)',(schoolname, schooladress, schoolweb, schoolemail, schoolcontact, schoolcat, schoolLevel))
+        mashuledb.commit()
         toast(schoolname + ', added succesfuly')
+        self.set_addschoolform_empty()
         self.Navigate_t0_homepage()
 
     dialog = None
@@ -300,6 +291,25 @@ class MashuleApp(MDApp):
         )
         self.AddActivity.open()
 
+    def set_regform_empty(self):
+        self.root.ids.regname.text = ""
+        self.root.ids.regpass.text = ""
+        self.root.ids.regpasscon.text = ""
+
+    def set_login_form_empty(self):
+        self.root.ids.username.text = ""
+        self.root.ids.userpass.text = ""
+        
+
+    def set_addschoolform_empty(self):
+        self.root.ids.schoolname.text = ""
+        self.root.ids.schooladress.text = ""
+        self.root.ids.schoolweb.text = "" 
+        self.root.ids.schoolemail.text = "" 
+        self.root.ids.schoolcontact.text = "" 
+        self.root.ids.schoolcat.text = ""
+        self.root.ids.schoolLevel.text = ""
+    
     def closeAddActivity_dialog_pop(self,obj):
         self.AddActivity.dismiss()
 
