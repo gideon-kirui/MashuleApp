@@ -15,6 +15,7 @@ from kivy.properties import StringProperty
 from kivymd_extensions.sweetalert import SweetAlert
 from kivymd.uix.relativelayout import MDRelativeLayout
 from kivy.core.window import Window
+import mysql
 
 Window.size = (320, 680)
 
@@ -33,6 +34,9 @@ class AdresourcesDC(BoxLayout):
     pass
 
 class ReasiurceName(BoxLayout):
+    pass
+
+class AddactivityInt(BoxLayout):
     pass
 
 class RessPassDC(BoxLayout):
@@ -271,6 +275,33 @@ class MashuleApp(MDApp):
             ],
         )
         self.ResNmD.open()
+################################### Add Activity Dialogue #############
+    def AddActivity_dialog_pop(self):
+        if not self.dialog:
+            self.AddActivity = MDDialog(
+            title="",
+            type = 'custom',
+            content_cls=AddactivityInt(),
+            auto_dismiss=False,
+            buttons=[
+                MDFlatButton(
+                    text="Cancel",
+                    theme_text_color="Custom",
+                    text_color=self.theme_cls.primary_color,
+                    on_release = self.closeAddActivity_dialog_pop,  
+                ), 
+                MDFlatButton(
+                    text="Okay",
+                    theme_text_color="Custom",
+                    text_color=self.theme_cls.primary_color,
+                    on_release = self.Navigate_t0_homepage,
+                ),
+            ],
+        )
+        self.AddActivity.open()
+
+    def closeAddActivity_dialog_pop(self,obj):
+        self.AddActivity.dismiss()
 
     def closeresourcename_dialog_pop(self,obj):
         self.ResNmD.dismiss()

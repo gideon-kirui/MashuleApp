@@ -1016,7 +1016,7 @@ ScreenManager:
                 icon: 'rotate-orbit'
                 MDBoxLayout:
                     orientation: "vertical"
-                    md_bg_color: 8/255, 3/255, 147/255, 1
+                    panel_color: .9, .9, .9, 1
                     MDGridLayout:
                         cols: 1
                         size_hint_y: None
@@ -1039,7 +1039,7 @@ ScreenManager:
                                 MDLabel:
                                     text: "Activities"
                                     font_style: "H6"
-                                    color: "white"
+                                    color: "black"
                                     halign: "left"
                                     text_size: (200, None)
                                     size_hint_x: .4
@@ -1151,7 +1151,17 @@ ScreenManager:
                                             text: "Tree Planting day"
                                             secondary_text: "23/01/2023"
                                             bold: True
-                                            color: 1, 0, 0, 1         
+                                            color: 1, 0, 0, 1  
+
+                #MDFloatLayout:
+                MDFloatingActionButton:
+                    id: button
+                    icon: "plus"
+                    md_bg_color: 0, 0, 0, 1
+                    size_hint: None, None
+                    icon_color: 'white'
+                    pos_hint: {'center_x':0.9, 'center_y':0.05}
+                    on_release: app.AddActivity_dialog_pop(),        
                 
 
             MDBottomNavigationItem:
@@ -1160,7 +1170,7 @@ ScreenManager:
                 icon: 'map-marker-radius-outline'
                 MDBoxLayout:
                     orientation: "vertical"
-                    md_bg_color: 8/255, 3/255, 147/255, 1
+                    panel_color: .9, .9, .9, .1
                     MDGridLayout:
                         cols: 1
                         size_hint_y: None
@@ -1183,7 +1193,7 @@ ScreenManager:
                                 MDLabel:
                                     text: "Location"
                                     font_style: "H6"
-                                    color: "white"
+                                    color: "black"
                                     halign: "left"
                                     text_size: (200, None)
                                     size_hint_x: .4
@@ -1191,28 +1201,22 @@ ScreenManager:
                     MDCard:
                         radius: [50, 50, 0, 0]
                         padding: dp(10)
-                        MDGridLayout:
-                            padding: '10dp'
+                        
+                        MDBoxLayout:
+                            size_hint_y: .9
+                            pos_hint: {'center_x': .5, 'center_y': .5}
+                            #height: "400dp"
+                            orientation: 'vertical'
                             spacing: '10dp'
-                            cols: 1
-                            size_hint: 1, None
-                            height: self.minimum_size[1]
-
-                            MDBoxLayout:
-                                size_hint_y: None
-                                pos_hint: {'center_x': .5, 'center_y':1}
-                                height: "400dp"
-                                orientation: 'vertical'
-                                spacing: '10dp'
-                                valign: 'top'
-                                MapView:
+                            valign: 'top'
+                            MapView:
+                                lat:11
+                                lon:11
+                                double_tap_zoom:True
+                                zoom:5
+                                MapMarkerPopup:
                                     lat:11
                                     lon:11
-                                    double_tap_zoom:True
-                                    zoom:5
-                                    MapMarkerPopup:
-                                        lat:11
-                                        lon:11
                                         
                             
 
@@ -1220,7 +1224,7 @@ ScreenManager:
     orientation: "vertical"
     spacing: "10dp"
     size_hint_y: None 
-    height: "270dp"
+    height: "300dp"
     MDTextField:
         hint_text: "Name"
 
@@ -1289,63 +1293,17 @@ ScreenManager:
         hint_text: "Enter Resource Name"
         mode: "round"
 
-<ClickableTextFieldRound>:
-    size_hint_y: None
-    height: text_field.height
-    #size_hint: .85, .08
-    
+<AddactivityInt>
+    orientation: "vertical"
+    spacing: "10dp"
+    size_hint_y: None 
+    height: "50dp"
+    MDTextField:
+        hint_text: "Activity Tittle"
+        mode: "round"
 
     MDTextField:
-        id: text_field
-        hint_text: root.hint_text
-        text: root.text
-        password: True
-        icon_left: "key-variant"
-        mode: 'round'
-        line_anim: 'True'
-
-    MDIconButton:
-        icon: "eye-off"
-        pos_hint: {"center_y": .5}
-        pos: text_field.width - self.width + dp(8), 0
-        theme_text_color: "Hint"
-        on_release:
-            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
-            text_field.password = False if text_field.password is True else True
-
-    #MDTextField:
-    #    id: text_field3
-    #    hint_text: root.hint_text
-    #    password: True
-    #    icon_left: "key-variant"
-    #    mode: 'round'
-    #    line_anim: 'True'
-
-    #MDIconButton:
-    #    icon: "eye-off"
-    #    pos_hint: {"center_y": .5}
-    # #   pos: text_field3.width - self.width + dp(8), 0
-    #    theme_text_color: "Hint"
-    #    on_release:
-    #        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
-    #        text_field3.password = False if text_field3.password is True else True
-
-    #MDTextField:
-    #    id: text_field4
-    #    hint_text: root.hint_text
-    #    password: True
-    #    icon_left: "key-variant"
-    #    mode: 'round'
-    #    line_anim: 'True'
-
-    #MDIconButton:
-    #    icon: "eye-off"
-    #    pos_hint: {"center_y": .5}
-    #    pos: text_field4.width - self.width + dp(8), 0
-    #    theme_text_color: "Hint"
-    #    on_release:
-    #        self.icon = "eye" if self.icon == "eye-off" else "eye-off"
-    #        text_field4.password = False if text_field4.password is True else True
-
+        hint_text: "date of activity"
+        mode: "round"
 
 '''
