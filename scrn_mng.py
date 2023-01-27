@@ -74,344 +74,31 @@ ScreenManager:
                 radius: [50, 50, 0, 0]
                 padding: dp(10)
                 MDBoxLayout:
+                    orientation: 'vertical'
                     ScrollView:
                         MDGridLayout:
+                            id: schoolitemdis
                             padding: '10dp'
                             spacing: '10dp'
                             cols: 2
                             size_hint: 1, None
                             height: self.minimum_size[1]
-                            MDCard:
-                                md_bg_color: .9, .9, .9, .7
-                                size_hint_y:None
-                                height:dp(250)
-                                padding:dp(5)
-                                spacing:dp(5)
-                                orientation:"vertical"
-                                MDGridLayout:
-                                    cols:1
-                                    MDBoxLayout:
-                                        adaptive_height: True
-                                        MDLabel:
-                                            id: schname
-                                            text: 'Kanyawanga School'[0:7] + ' ...'
-                                            font_style: "Body1"
-                                            size_hint_y: None
-                                            height: "10dp"
-                                            color: "black"
-                                            pos_hint: {"center_y": .5}
-
-                                        MDIconButton:
-                                            id: drop_item2
-                                            md_bg_color: 1, 1, 1, 1
-                                            icon: "dots-vertical"
-                                            size_hint_y: None
-                                            icon_size: "14sp"
-                                            hint_size_x: None
-                                            pos_hint: {"center_y": .5}
-                                            on_release: app.menu2.open()
-
-                                    MDLabel:
-                                        text: 'Extra-County School'
-                                        hint_size_y: None
-                                        height: "20dp"
-                                        font_style: "Caption"
-                                        color: 'brown'
-
-                                MDBoxLayout:
-                                    orientation: 'vertical'
-                                    size_hint_y: None
-                                    spacing:dp(5)
-                                    height: self.minimum_size[1]
-                                    Image:
-                                        source: './images/school2.png'
-                                        size_hint_y: None
-                                    
-                                    
-
-                                MDGridLayout:
-                                    cols: 1
-                                    height: self.minimum_size[1]
-                                    MDRaisedButton:
-                                        text: "see details"
-                                        md_bg_color: "blue"
-                                        #pos_hint: {"center_x": .5, "center_y": .03}
-                                        on_release: root.current ='school'
-
-                                    MDBoxLayout:
-                                        size_hint_y: None
-                                        height: self.minimum_height
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-                                        
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram-outline"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram-outline"
-                                            color: 'green'
                             
-                            MDCard:
-                                md_bg_color: .9, .9, .9, .7
-                                size_hint_y:None
-                                height:dp(250)
-                                padding:dp(5)
-                                spacing:dp(5)
-                                orientation:"vertical"
-                                on_press: root.current ='school'
-                                MDGridLayout:
-                                    cols:1
-                                    MDBoxLayout:
-                                        adaptive_height: True
-                                        MDLabel:
-                                            text: 'Kanyawanga School'[0:7] + ' ...' 
-                                            font_style: "Body1"
-                                            size_hint_y: None
-                                            height: "10dp"
-                                            color: "black"
-                                            pos_hint: {"center_y": .5}
+                            
+                                
 
-                                        MDIconButton:
-                                            id: drop_item2
-                                            md_bg_color: 1, 1, 1, 1
-                                            icon: "dots-vertical"
-                                            size_hint_y: None
-                                            icon_size: "14sp"
-                                            hint_size_x: None
-                                            pos_hint: {"center_y": .5}
-                                            on_release: app.menu2.open()
-
-                                    MDLabel:
-                                        text: 'Extra-County School'
-                                        hint_size_y: None
-                                        height: "20dp"
-                                        font_style: "Caption"
-                                        color: 'brown'
-
-                                MDBoxLayout:
-                                    orientation: 'vertical'
-                                    size_hint_y: None
-                                    spacing:dp(5)
-                                    height: self.minimum_size[1]
-                                    Image:
-                                        source: './images/school1.png'
-                                        size_hint_y: None
-                                        
-                                    
-
-                                MDGridLayout:
-                                    cols: 1
-                                    height: self.minimum_size[1]
-                                    MDRaisedButton:
-                                        text: "see details"
-                                        md_bg_color: "blue"
-                                        #pos_hint: {"center_x": .5, "center_y": .03}
-                                        #on_release: app.add_school_submit()
-
-                                    MDBoxLayout:
-                                        size_hint_y: None
-                                        height: self.minimum_height
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-                                        
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram-outline"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram-outline"
-                                            color: 'green'
-
-                                            
-                            MDCard:
-                                md_bg_color: .9, .9, .9, .7
-                                size_hint_y:None
-                                height:dp(250)
-                                padding:dp(5)
-                                spacing:dp(5)
-                                orientation:"vertical"
-                                on_press: root.current ='school'
-                                MDGridLayout:
-                                    cols:1
-                                    MDBoxLayout:
-                                        adaptive_height: True
-                                        MDLabel:
-                                            text: 'Kanyawanga School'[0:7] + ' ...' 
-                                            font_style: "Body1"
-                                            size_hint_y: None
-                                            height: "10dp"
-                                            color: "black"
-                                            pos_hint: {"center_y": .5}
-
-                                        MDIconButton:
-                                            id: drop_item2
-                                            md_bg_color: 1, 1, 1, 1
-                                            icon: "dots-vertical"
-                                            size_hint_y: None
-                                            icon_size: "14sp"
-                                            hint_size_x: None
-                                            pos_hint: {"center_y": .5}
-                                            on_release: app.menu2.open()
-
-                                    MDLabel:
-                                        text: 'Extra-County School'
-                                        hint_size_y: None
-                                        height: "20dp"
-                                        font_style: "Caption"
-                                        color: 'brown'
-
-                                MDBoxLayout:
-                                    orientation: 'vertical'
-                                    size_hint_y: None
-                                    spacing:dp(5)
-                                    height: self.minimum_size[1]
-                                    Image:
-                                        source: './images/school1.png'
-                                        size_hint_y: None
-                                        
-                                    
-
-                                MDGridLayout:
-                                    cols: 1
-                                    height: self.minimum_size[1]
-                                    MDRaisedButton:
-                                        text: "see details"
-                                        md_bg_color: "blue"
-                                        #pos_hint: {"center_x": .5, "center_y": .03}
-                                        #on_release: app.add_school_submit()
-
-                                    MDBoxLayout:
-                                        size_hint_y: None
-                                        height: self.minimum_height
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-                                        
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram-outline"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram-outline"
-                                            color: 'green'   
-
-                            MDCard:
-                                md_bg_color: .9, .9, .9, .7
-                                size_hint_y:None
-                                height:dp(250)
-                                padding:dp(5)
-                                spacing:dp(5)
-                                orientation:"vertical"
-                                on_press: root.current ='school'
-                                MDGridLayout:
-                                    cols:1
-                                    MDBoxLayout:
-                                        adaptive_height: True
-                                        MDLabel:
-                                            text: 'Kanyawanga School'[0:7] + ' ...' 
-                                            font_style: "Body1"
-                                            size_hint_y: None
-                                            height: "10dp"
-                                            color: "black"
-                                            pos_hint: {"center_y": .5}
-
-                                        MDIconButton:
-                                            id: drop_item2
-                                            md_bg_color: 1, 1, 1, 1
-                                            icon: "dots-vertical"
-                                            size_hint_y: None
-                                            icon_size: "14sp"
-                                            hint_size_x: None
-                                            pos_hint: {"center_y": .5}
-                                            on_release: app.menu2.open()
-
-                                    MDLabel:
-                                        text: 'Extra-County School'
-                                        hint_size_y: None
-                                        height: "20dp"
-                                        font_style: "Caption"
-                                        color: 'brown'
-
-                                MDBoxLayout:
-                                    orientation: 'vertical'
-                                    size_hint_y: None
-                                    spacing:dp(5)
-                                    height: self.minimum_size[1]
-                                    Image:
-                                        source: './images/school1.png'
-                                        size_hint_y: None
-                                        
-                                    
-
-                                MDGridLayout:
-                                    cols: 1
-                                    height: self.minimum_size[1]
-                                    MDRaisedButton:
-                                        text: "see details"
-                                        md_bg_color: "blue"
-                                        #pos_hint: {"center_x": .5, "center_y": .03}
-                                        #on_release: app.add_school_submit()
-
-                                    MDBoxLayout:
-                                        size_hint_y: None
-                                        height: self.minimum_height
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-                                        
-                                        MDIcon:
-                                            icon: "hexagram"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram-outline"
-                                            color: 'green'
-
-                                        MDIcon:
-                                            icon: "hexagram-outline"
-                                            color: 'green'
-
-            MDFloatLayout:
-                size_hint: 1, None
-                MDFloatingActionButton:
-                    id: button
-                    icon: "plus"
-                    md_bg_color: 1, 1, 1, 1
-                    size_hint: None, None
-                    pos_hint: {'center_x':.5, 'center_y':0.5}
-                    on_release: root.current = 'addschool'
-                    icon_color: 'black'
+                    MDBoxLayout:
+                        size_hint_y: None
+                        size_hint_x: None
+                        height: self.minimum_size[1]
+                        MDFloatingActionButton:
+                            id: button
+                            icon: "plus"
+                            md_bg_color: .9, .9, .9, .7
+                            size_hint: None, None
+                            icon_color: 'black'
+                            pos_hint: {'center_x': 1, 'center_y':0.4} 
+                            on_release: root.current = 'addschool'
 
             MDLabel:
                 text: 'mashuleApp Copyright 2023'
@@ -909,7 +596,8 @@ ScreenManager:
                                 pos_hint: {'center_y':0.5}
                                 spacing:dp(10)
                                 MDLabel:
-                                    text: "About Kanyawanga"[0:18]
+                                    id:schabname
+                                    #text: "About Kanyawanga"[0:18]
                                     font_style: "H6"
                                     color: "black"
                                     halign: "left"
@@ -951,8 +639,7 @@ ScreenManager:
                                     font_style: 'Body1' 
 
                                 MDLabel:
-                                    id:contact
-                                    #text: '+254012345678'
+                                    id:schconta
                                     pos_hint: {"center_x": .95, "center_y": .5}
                                     adaptive_size: True
                                     text_color: 'white'
@@ -971,6 +658,7 @@ ScreenManager:
                                     adaptive_size: True
 
                                 MDLabel:
+                                    id:schemai
                                     text: 'schoolmail@gmail.com'
                                     pos_hint: {"center_x": .95, "center_y": .5}
                                     hint_size: None, None
@@ -989,7 +677,7 @@ ScreenManager:
                                     adaptive_size: True
 
                                 MDLabel:
-                                    text: 'wwww.schoolwebsite.com'
+                                    id:schwebs
                                     pos_hint: {"center_x": .95, "center_y": .5}
                                     hint_size: None, None
                                     adaptive_size: True
@@ -1002,12 +690,12 @@ ScreenManager:
                                 padding: '5dp'
                                 spacing: '10dp'
                                 MDLabel:
-                                    text: 'Adress:'
+                                    text: 'Address:'
                                     pos_hint: {"center_x": .1, "center_y": .5}
                                     adaptive_size: True
 
                                 MDLabel:
-                                    text: 'PO BOX 6-600, Embu-Kenya'
+                                    id:schaddr
                                     pos_hint: {"center_x": .95, "center_y": .5}
                                     hint_size: None, None
                                     adaptive_size: True
@@ -1308,5 +996,8 @@ ScreenManager:
     MDTextField:
         hint_text: "date of activity"
         mode: "round"
+
+
+
 
 '''
