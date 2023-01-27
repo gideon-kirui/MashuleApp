@@ -74,6 +74,7 @@ ScreenManager:
                 radius: [50, 50, 0, 0]
                 padding: dp(10)
                 MDBoxLayout:
+                    id: home_view
                     orientation: 'vertical'
                     ScrollView:
                         MDGridLayout:
@@ -88,17 +89,11 @@ ScreenManager:
                                 
 
                     MDBoxLayout:
+                        id: addschwdgt
                         size_hint_y: None
                         size_hint_x: None
                         height: self.minimum_size[1]
-                        MDFloatingActionButton:
-                            id: button
-                            icon: "plus"
-                            md_bg_color: .9, .9, .9, .7
-                            size_hint: None, None
-                            icon_color: 'black'
-                            pos_hint: {'center_x': 1, 'center_y':0.4} 
-                            on_release: root.current = 'addschool'
+                        
 
             MDLabel:
                 text: 'mashuleApp Copyright 2023'
@@ -110,36 +105,25 @@ ScreenManager:
         MDNavigationDrawer:
             id: nav_hdrawer
             top_right_radius: 20
-            size_hint: (0.65, 0.35)
-            pos_hint: {'center_y':0.8}
+            size_hint: (0.65, 0.2)
+            pos_hint: {'center_y':0.88}
             BoxLayout:
                 orientation: 'vertical'
                 spacing: '5dp'
                 ScrollView:
                     MDList:
-                        OneLineIconListItem:
-                            text: 'Log in'
-                            on_press: root.current='sgnlgn'
-                            IconLeftWidget:
-                                icon: 'account-check'
-
-                        OneLineIconListItem:
-                            text: 'Reset Password'
-                            on_press: app.showResetPassword_dialog_pop()
-                            IconLeftWidget:
-                                icon: 'key-chain'
-
-                        OneLineIconListItem:
-                            text: 'Add User'
-                            on_press: root.current='signupU'
-                            IconLeftWidget:
-                                icon: 'account'
+                        id:left_drawer
+                        #OneLineIconListItem:
+                            #text: 'Log in'
+                            #on_press: root.current='sgnlgn'
+                            #IconLeftWidget:
+                                #icon: 'account-check'
 
                         OneLineIconListItem:
                             text: 'Resources'
                             on_press: root.current = 'resources'
                             IconLeftWidget:
-                                icon: 'logout'
+                                icon: 'pencil'
             
         MDNavigationDrawer:
             id: nav_hadrawer
@@ -226,7 +210,7 @@ ScreenManager:
                 cols:2
                 size_hint_y: None
                 height: self.minimum_size[1]
-                pos_hint: {"center_x": .5, "center_y": .33}
+                pos_hint: {"center_x": .5, "center_y": .37}
                 padding:dp(10)
                 MDTextField:
                     id: userpass
@@ -250,8 +234,17 @@ ScreenManager:
                 text: "Forget your password?"
                 theme_text_color: "Custom"
                 text_color: 246/255, 135/255, 177/255, 1
-                pos_hint: {"center_x": .5, "center_y": .25}
-                on_press: app.showResetPassword_dialog_pop()
+                pos_hint: {"center_x": .5, "center_y": .27}
+                #on_press: app.showResetPassword_dialog_pop()
+
+            MDLabel:
+                size_hint_x: .9
+                text: "You dont have an Acount? click Requset Reg bellow"
+                theme_text_color: "Custom"
+                font_style: 'Caption'
+                text_color: 0, 0, 0, 1
+                pos_hint: {"center_x": .5, "center_y": .23}
+                
 
             MDFloatLayout:
                 size_hint: 1, .2
@@ -262,7 +255,7 @@ ScreenManager:
                     spacing:dp(5)
                     MDChip:
                         text: "Requset Reg"
-                        #on_release: app.on_release_chip(self)
+                        on_release: app.request_Registration_dialog()
                         icon_left: "mail"
                         md_bg_color: .2, .2, .2, .6
                         text_color: 1, 1, 1, 1
@@ -270,7 +263,7 @@ ScreenManager:
                     
                     MDChip:
                         text: "Know More"
-                        #on_release: app.on_release_chip(self)
+                        on_release: app.See_explation_dialog()
                         icon_left: "information"
                         text_color: 0, 0, 1, 1
                         icon_left_color: .2, .2, .2, 1
@@ -442,6 +435,7 @@ ScreenManager:
                     MDBoxLayout:
                         ScrollView:
                             MDGridLayout:
+                                id: addreslist
                                 padding: '10dp'
                                 spacing: '10dp'
                                 cols: 1
