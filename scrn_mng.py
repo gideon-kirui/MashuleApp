@@ -956,7 +956,7 @@ ScreenManager:
     orientation: "vertical"
     spacing: "10dp"
     size_hint_y: None 
-    height: "30dp"
+    height: "80dp"
     GridLayout:
         cols:2
         size_hint_y: None
@@ -967,7 +967,16 @@ ScreenManager:
             #pos_hint: {'center_x':0.9, 'center_y':0.2}
             
         MDLabel:
-            text: "Add a reource"
+            text: "Creat Folder"
+
+        MDIconButton:
+            icon: "plus-circle"
+            on_release: app.resourcename_dialog_pop()
+            #pos_hint: {'center_x':0.9, 'center_y':0.2}
+            
+        MDLabel:
+            text: "Upload File"
+
 
 <ReasiurceName>
     orientation: "vertical"
@@ -975,7 +984,8 @@ ScreenManager:
     size_hint_y: None 
     height: "30dp"
     MDTextField:
-        hint_text: "Enter Resource Name"
+        id:rsstxt
+        hint_text: "Enter Resource/Folder Name"
         mode: "round"
 
 <AddactivityInt>

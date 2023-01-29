@@ -13,7 +13,7 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.button import MDFlatButton, MDRaisedButton, MDIconButton, MDFloatingActionButton
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.gridlayout import MDGridLayout
-from kivymd.uix.list import OneLineIconListItem, IconLeftWidget
+from kivymd.uix.list import OneLineIconListItem, IconLeftWidget, IconRightWidget
 from kivymd.uix.dialog import MDDialog
 from kivy.properties import StringProperty
 from kivymd_extensions.sweetalert import SweetAlert
@@ -24,11 +24,11 @@ Window.size = (320, 680)
 
 
 mashuledb = mysql.connector.connect(
-    host="localhost", #"11.106.0.13",
-    user="gideon", #'marshaa1_mshule',
-    passwd="gen@mic1", #'mashule@cpanel',
-    database="Mashule",#'marshaa1_MashuleApp',
-    auth_plugin='mysql_native_password'
+    host= "11.106.0.13",
+    user= 'marshaa1_mshule',
+    passwd= 'mashule@cpanel',
+    database='marshaa1_MashuleApp',
+    #auth_plugin='mysql_native_password'
 )
 
 mashulecursor = mashuledb.cursor()
@@ -243,7 +243,7 @@ class MashuleApp(MDApp):
         user = mashulecursor.fetchone()
         
         if user:
-            if username == 'MashuleAdmin' and userpass == '1234':
+            if username == 'Mash@Admin' and userpass == 'gen@mic1':
                 alert = SweetAlert(title="You are loged in as admin",
                     text=f"Hi {username} You can now add users to mashule",
                     type="simple",
@@ -261,6 +261,8 @@ class MashuleApp(MDApp):
                 self.Navigate_t0_homepage()
                 self.set_login_form_empty()
                 self.add_loginuser_previlages()
+        elif self.root.ids.username.text == "" and self.root.ids.userpass.text == "":
+            toast('fill in Your login credentials')
         else:
             toast('Wrong Credentials, Try again')
             self.set_login_form_empty()
@@ -271,7 +273,12 @@ class MashuleApp(MDApp):
 
         mashulecursor.execute('INSERT INTO Schools (name, address, website, email, contact, category, level) VALUES (%s,%s,%s,%s,%s,%s,%s)',(schoolname, schooladress, schoolweb, schoolemail, schoolcontact, schoolcat, schoolLevel))
         mashuledb.commit()
-        toast(schoolname + ', added succesfuly')
+        
+        alert = SweetAlert(title="added succesfuly",
+            text=f"You Can restart the app to See the school updated",
+            type="simple",
+            auto_dismiss=True)
+        alert.open()
         self.set_addschoolform_empty()
         self.Navigate_t0_homepage()
 
@@ -517,12 +524,12 @@ class MashuleApp(MDApp):
         
 
     def add_loginuser_previlages(self):
-        listofsp = OneLineIconListItem(text= 'Logout') #on_press= lambda x:self.signupscreen
-        iconltsp = IconLeftWidget(
-            icon= 'logout',
-        )
-        listofsp.add_widget(iconltsp)
-        self.root.ids.left_drawer.add_widget(listofsp)
+        #listofsp = OneLineIconListItem(text= 'Logout') #on_press= lambda x:self.signupscreen
+        #iconltsp = IconLeftWidget(
+            #icon= 'logout',
+        #)
+        #listofsp.add_widget(iconltsp)
+        #self.root.ids.left_drawer.add_widget(listofsp)
 
         listofrpsp = OneLineIconListItem(text= 'Reset Pasword', on_press=self.showResetPassword_dialog_pop)
         iconltrpsp = IconLeftWidget(
@@ -552,9 +559,22 @@ class MashuleApp(MDApp):
         self.adrd.dismiss()
 
     def req_lgin_rss(self, *args):
-        self.closeresourcename_dialog_pop
-        self.close_adrd_dialogue
-        self.root.current = 'signupU'
+        rssfdwt = OneLineIconListItem(
+        text= ""
+        )
+        resfldwdgt = IconLeftWidget(
+            icon= 'folder',
+            #on_release= self.open_file_manager()
+        )
+        
+        rssfdwt.add_widget(resfldwdgt)
+        #rssfdwt.add_widget(resflrdwdgt)
+
+        self.root.ids.addreslist.add_widget(rssfdwt)
+
+        self.ResNmD.dismiss()
+        self.adrd.dismiss()
+        self.root.current = 'resources'
 
     def Navigate_t0_homepage(self):
         self.root.current = 'home'
