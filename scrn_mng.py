@@ -445,6 +445,123 @@ ScreenManager:
                     MDFloatLayout:
                         id:addrsbtn
                          
+    MDScreen:
+        id: 'manusers'
+        name: 'manusers'
+        md_bg_color: 1, 1, 1, 1
+        MDBoxLayout:
+            orientation: "vertical"
+            md_bg_color: .9, .9, .9, .7
+            MDGridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                MDBoxLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding:dp(10)
+                    spacing:dp(10)
+                    MDIconButton:
+                        icon: "arrow-left"
+                        color: "blue"
+                        on_press: root.current = 'home'
+
+                    MDBoxLayout:
+                        size_hint_y: None
+                        height: self.minimum_height
+                        pos_hint: {'center_y':0.5}
+                        spacing:dp(10)
+                        MDLabel:
+                            text: "Manage Mashule Users"
+                            font_style: "H6"
+                            color: "black"
+                            halign: "left"
+                            text_size: (200, None)
+                            size_hint_x: .4
+
+            MDCard:
+                md_bg_color: 1, 1, 1, 1
+                radius: [50, 50, 0, 0]
+                padding: dp(10)
+                MDGridLayout:
+                    padding: '10dp'
+                    spacing: '10dp'
+                    cols: 1
+                    MDLabel:
+                        size_hint: 1, None
+                        text: 'Admin page For managing Users'
+                        halign: 'center'
+                        font_style: 'H5'
+                        color: .5, .3, .7, .6
+
+                    MDBoxLayout:
+                        ScrollView:
+                            MDGridLayout:
+                                id: addreslist
+                                padding: '10dp'
+                                spacing: '10dp'
+                                cols: 1
+                                size_hint: 1, None
+                                height: self.minimum_size[1]
+
+    MDScreen:
+        id: 'manschools'
+        name: 'manschools'
+        md_bg_color: 1, 1, 1, 1
+        MDBoxLayout:
+            orientation: "vertical"
+            md_bg_color: .9, .9, .9, .7
+            MDGridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                MDBoxLayout:
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding:dp(10)
+                    spacing:dp(10)
+                    MDIconButton:
+                        icon: "arrow-left"
+                        color: "blue"
+                        on_press: root.current = 'home'
+
+                    MDBoxLayout:
+                        size_hint_y: None
+                        height: self.minimum_height
+                        pos_hint: {'center_y':0.5}
+                        spacing:dp(10)
+                        MDLabel:
+                            text: "Manage Mashule Schools"
+                            font_style: "H6"
+                            color: "black"
+                            halign: "left"
+                            text_size: (200, None)
+                            size_hint_x: .4
+
+            MDCard:
+                md_bg_color: 1, 1, 1, 1
+                radius: [50, 50, 0, 0]
+                padding: dp(10)
+                MDGridLayout:
+                    padding: '10dp'
+                    spacing: '10dp'
+                    cols: 1
+                    MDLabel:
+                        size_hint: 1, None
+                        text: 'Schools Management Panel'
+                        halign: 'center'
+                        font_style: 'H5'
+                        color: .5, .3, .7, .6
+
+                    MDBoxLayout:
+                        ScrollView:
+                            MDGridLayout:
+                                id: addreslist
+                                padding: '10dp'
+                                spacing: '10dp'
+                                cols: 1
+                                size_hint: 1, None
+                                height: self.minimum_size[1]
 
     MDScreen:
         id: 'addschool'

@@ -254,7 +254,7 @@ class MashuleApp(MDApp):
         if user:
             if username == 'Mash@Admin' and userpass == 'gen@mic1':
                 alert = SweetAlert(title="Admin login Succesfull",
-                    text=f"Hi {username} You can now add manage users",
+                    text=f"Hi {username} you can now exploit all the admin previlages like managing users and schools among others",
                     type="simple",
                     auto_dismiss=True)
                 alert.open()
@@ -540,12 +540,19 @@ class MashuleApp(MDApp):
         listofap.add_widget(iconlt)
         self.root.ids.left_drawer.add_widget(listofap)
 
-        listofuss = OneLineIconListItem(text= 'Manage Users', on_press= self.signupscreen)
+        listofuss = OneLineIconListItem(text= 'Users', on_press= self.manuserspage)
         iconltuss = IconLeftWidget(
             icon= 'account-multiple',
         )
         listofuss.add_widget(iconltuss)
         self.root.ids.left_drawer.add_widget(listofuss)
+
+        listofscls = OneLineIconListItem(text= 'Schools', on_press= self.manschoolspage)
+        iconltscls = IconLeftWidget(
+            icon= 'home-circle-outline',
+        )
+        listofscls.add_widget(iconltscls)
+        self.root.ids.left_drawer.add_widget(listofscls)
 
         listofap1 = OneLineIconListItem(text= 'Logout', on_press= self.log_out_manager)
         iconlt1 = IconLeftWidget(
@@ -674,7 +681,7 @@ class MashuleApp(MDApp):
     def exit_manager(self, obj):
         self.file_manager.close()
 
-    def Navigate_t0_homepage(self):
+    def Navigate_t0_homepage(self, *args):
         self.root.current = 'home'
 
     def Navigate_to_resourcespage(self):
@@ -682,6 +689,12 @@ class MashuleApp(MDApp):
 
     def Navigate_to_SignupPage(self, *args):
         self.root.current = 'sgnlgn'
+
+    def manuserspage(self, args):
+        self.root.current = 'manusers'
+
+    def manschoolspage(self, args):
+        self.root.current = 'manschools'
 
     def signupscreen(self, *args):
         self.root.current = 'signupU'
