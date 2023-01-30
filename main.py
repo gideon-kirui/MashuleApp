@@ -12,6 +12,7 @@ from kivymd.toast import toast
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.button import MDFlatButton, MDRaisedButton, MDIconButton, MDFloatingActionButton
 from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.list import OneLineIconListItem, IconLeftWidget, IconRightWidget
 from kivymd.uix.dialog import MDDialog
@@ -24,11 +25,11 @@ Window.size = (320, 680)
 
 
 mashuledb = mysql.connector.connect(
-    host= "11.106.0.13",
-    user= 'marshaa1_mshule',
-    passwd= 'mashule@cpanel',
-    database='marshaa1_MashuleApp',
-    #auth_plugin='mysql_native_password'
+    host= "localhost",
+    user= 'gideon',
+    passwd= 'gen@mic1',
+    database='Mashule',
+    auth_plugin='mysql_native_password'
 )
 
 mashulecursor = mashuledb.cursor()
@@ -47,6 +48,9 @@ class AdresourcesDC(MDBoxLayout):
     pass
 
 class ReasiurceName(MDBoxLayout):
+    pass 
+
+class ReasiurceobjName(MDBoxLayout):
     pass
 
 class AddactivityInt(MDBoxLayout):
@@ -60,9 +64,22 @@ class MashuleApp(MDApp):
     def __init__(self,  **kwargs):
         super().__init__(**kwargs)
         self.screen = Builder.load_string(screen_helper)
+        self.file_manager = MDFileManager(
+            select_path = self.select_path,
+            exit_manager= self.exit_manager,
+            preview = True
+        )
 
         self.data = []
 
+        self.loginwdgt = OneLineIconListItem(
+        text= 'Log in', on_press= self.Navigate_to_SignupPage
+        )
+        accticnwdgt = IconLeftWidget(
+            icon= 'account-check'
+        )
+
+        self.loginwdgt.add_widget(accticnwdgt)
     ########## Changing Category ###########
         menudata1 = ['National', 'Provincial', 'Extra-County', 'County', 'Distict']
 
@@ -102,15 +119,7 @@ class MashuleApp(MDApp):
 
         self.create_cards(data)
 
-        loginwdgt = OneLineIconListItem(
-        text= 'Log in', on_press= self.Navigate_to_SignupPage
-        )
-        accticnwdgt = IconLeftWidget(
-            icon= 'account-check'
-        )
-
-        loginwdgt.add_widget(accticnwdgt)
-        self.root.ids.left_drawer.add_widget(loginwdgt)
+        self.root.ids.left_drawer.add_widget(self.loginwdgt)
 
     def fetch_data_from_database(self):
 
@@ -244,8 +253,8 @@ class MashuleApp(MDApp):
         
         if user:
             if username == 'Mash@Admin' and userpass == 'gen@mic1':
-                alert = SweetAlert(title="You are loged in as admin",
-                    text=f"Hi {username} You can now add users to mashule",
+                alert = SweetAlert(title="Admin login Succesfull",
+                    text=f"Hi {username} You can now add manage users",
                     type="simple",
                     auto_dismiss=True)
                 alert.open()
@@ -400,7 +409,7 @@ class MashuleApp(MDApp):
 
     #################### ADD ressources Dialog ###############
 
-    def add_resource_dialog(self):
+    def add_resource_dialog(self, obj):
         if not self.dialog:
             self.adrd = MDDialog(
             title="Add Resources",
@@ -410,11 +419,12 @@ class MashuleApp(MDApp):
             auto_dismiss=False,
             buttons=[
                 MDRaisedButton(
-                    text="Create",
-                    theme_text_color="Hint", 
+                    text="Cancel",
+                    theme_text_color="Hint",
+                    on_release = self.close_adrd_dialogue,
                 ),
                 MDFlatButton(
-                    text="Cancel",
+                    text="Okay",
                     theme_text_color="Hint",
                     on_release = self.close_adrd_dialogue,
                 ),
@@ -448,6 +458,32 @@ class MashuleApp(MDApp):
             ],
         )
         self.ResNmD.open()
+        
+
+    def myresourcename_dialog_pop(self):
+        if not self.dialog:
+            self.MyResNmD = MDDialog(
+            title="",
+            type = 'custom',
+            content_cls=ReasiurceobjName(),
+            auto_dismiss=False,
+            buttons=[
+                MDFlatButton(
+                    text="Cancel",
+                    theme_text_color="Custom",
+                    text_color=self.theme_cls.primary_color,
+                    on_release = self.closemyresourcename_dialog_pop,  
+                ), 
+                MDFlatButton(
+                    text="Okay",
+                    theme_text_color="Custom",
+                    text_color=self.theme_cls.primary_color,
+                    on_release = self.req_lgin_myrss,
+                ),
+            ],
+        )
+        self.MyResNmD.open()
+        
 ################################### Add Activity Dialogue #############
     def AddActivity_dialog_pop(self):
         if not self.dialog:
@@ -499,14 +535,27 @@ class MashuleApp(MDApp):
     def add_addim_previlages(self):
         listofap = OneLineIconListItem(text= 'Add User', on_press= self.signupscreen)
         iconlt = IconLeftWidget(
-            icon= 'account',
+            icon= 'account-plus',
         )
+        listofap.add_widget(iconlt)
+        self.root.ids.left_drawer.add_widget(listofap)
 
-        listofap1 = OneLineIconListItem(text= 'Logout',) #on_press= self.signupscreen)
+        listofuss = OneLineIconListItem(text= 'Manage Users', on_press= self.signupscreen)
+        iconltuss = IconLeftWidget(
+            icon= 'account-multiple',
+        )
+        listofuss.add_widget(iconltuss)
+        self.root.ids.left_drawer.add_widget(listofuss)
+
+        listofap1 = OneLineIconListItem(text= 'Logout', on_press= self.log_out_manager)
         iconlt1 = IconLeftWidget(
             icon= 'logout',
         )
-        
+        listofap1.add_widget(iconlt1)
+        self.root.ids.left_drawer.add_widget(listofap1)
+
+        self.root.ids.left_drawer.remove_widget(self.loginwdgt)
+
         addschwdgtactbtnad = MDFloatingActionButton(
             icon= "plus",
             md_bg_color= (.9, .9, .9, .7),
@@ -515,29 +564,35 @@ class MashuleApp(MDApp):
             pos_hint= {'center_x': 1, 'center_y':0.4},
             on_release= self.nav_to_add_school
         )
-
-        listofap.add_widget(iconlt)
-        listofap1.add_widget(iconlt1)
-        self.root.ids.left_drawer.add_widget(listofap)
-        self.root.ids.left_drawer.add_widget(listofap1)
         self.root.ids.addschwdgt.add_widget(addschwdgtactbtnad)
+
+        addrswdgtbtn = MDFloatingActionButton(
+            icon= "plus",
+            md_bg_color= (.9, .9, .9, .7),
+            size_hint= (None, None),
+            icon_color= 'black',
+            pos_hint= {'center_x': .9, 'center_y':0.2},
+            on_release= self.add_resource_dialog
+        )
+        self.root.ids.addrsbtn.add_widget(addrswdgtbtn)
         
 
     def add_loginuser_previlages(self):
-        #listofsp = OneLineIconListItem(text= 'Logout') #on_press= lambda x:self.signupscreen
-        #iconltsp = IconLeftWidget(
-            #icon= 'logout',
-        #)
-        #listofsp.add_widget(iconltsp)
-        #self.root.ids.left_drawer.add_widget(listofsp)
+        listofsp = OneLineIconListItem(text= 'Logout', on_press= self.log_out_manager)
+        iconltsp = IconLeftWidget(
+            icon= 'logout',
+        )
+        listofsp.add_widget(iconltsp)
+        self.root.ids.left_drawer.add_widget(listofsp)
 
         listofrpsp = OneLineIconListItem(text= 'Reset Pasword', on_press=self.showResetPassword_dialog_pop)
         iconltrpsp = IconLeftWidget(
             icon= 'key-chain',
         )
         listofrpsp.add_widget(iconltrpsp)
-
         self.root.ids.left_drawer.add_widget(listofrpsp)
+
+        self.root.ids.left_drawer.remove_widget(self.loginwdgt)
 
         addschwdgtactbtn = MDFloatingActionButton(
             icon= "plus",
@@ -548,12 +603,28 @@ class MashuleApp(MDApp):
             on_release= self.nav_to_add_school
         )
         self.root.ids.addschwdgt.add_widget(addschwdgtactbtn)
+
+        addrswdgtbtn = MDFloatingActionButton(
+            icon= "plus",
+            md_bg_color= (.9, .9, .9, .7),
+            size_hint= (None, None),
+            icon_color= 'black',
+            pos_hint= {'center_x': .9, 'center_y':0.2},
+            on_release= self.add_resource_dialog
+        )
+        self.root.ids.addrsbtn.add_widget(addrswdgtbtn)
+
+    def log_out_manager(self, obj):
+        toast('Under developement')
         
     def closeAddActivity_dialog_pop(self,obj):
         self.AddActivity.dismiss()
 
     def closeresourcename_dialog_pop(self,obj):
         self.ResNmD.dismiss()
+
+    def closemyresourcename_dialog_pop(self, obj):
+        self.MyResNmD.dismiss()
 
     def close_adrd_dialogue(self,obj):
         self.adrd.dismiss()
@@ -575,6 +646,33 @@ class MashuleApp(MDApp):
         self.ResNmD.dismiss()
         self.adrd.dismiss()
         self.root.current = 'resources'
+
+    def req_lgin_myrss(self, *args):
+        myrssfdwt = OneLineIconListItem(
+        text= ""
+        )
+        myresfldwdgt = IconLeftWidget(
+            icon= 'file',
+            #on_release= self.open_file_manager()
+        )
+        
+        myrssfdwt.add_widget(myresfldwdgt)
+        #rssfdwt.add_widget(resflrdwdgt)
+
+        self.root.ids.addreslist.add_widget(myrssfdwt)
+
+        self.MyResNmD.dismiss()
+        self.adrd.dismiss()
+        self.root.current = 'resources'
+    
+    def open_file_manager(self):
+        self.file_manager.show('/')
+    
+    def select_path(self, path):
+        toast(f'you have selected {path}')
+
+    def exit_manager(self, obj):
+        self.file_manager.close()
 
     def Navigate_t0_homepage(self):
         self.root.current = 'home'

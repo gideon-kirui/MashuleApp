@@ -426,11 +426,10 @@ ScreenManager:
                     cols: 1
                     MDLabel:
                         size_hint: 1, None
-                        #height: self.minimum_height[1]
                         text: 'Download revision materials bellow'
                         halign: 'center'
-                        font_style: 'H6'
-                        text_color: 0, 1, 0, 1
+                        font_style: 'H5'
+                        color: .5, .3, .7, .6
 
                     MDBoxLayout:
                         ScrollView:
@@ -442,25 +441,10 @@ ScreenManager:
                                 size_hint: 1, None
                                 height: self.minimum_size[1]
 
-                                OneLineAvatarIconListItem:
-                                    text: "Chemestry PP1"
-                                    
-                                    IconLeftWidget:
-                                        icon: "folder"
-                                        on_release: app.open_file_manager()
-                                    IconRightWidget:
-                                        icon: "arrow-collapse-down"
-
 
                     MDFloatLayout:
-                        MDFloatingActionButton:
-                            id: button
-                            icon: "plus"
-                            md_bg_color: .9, .9, .9, .7
-                            size_hint: None, None
-                            icon_color: 'black'
-                            pos_hint: {'center_x':0.9, 'center_y':0.2}
-                            on_release: app.add_resource_dialog(),  
+                        id:addrsbtn
+                         
 
     MDScreen:
         id: 'addschool'
@@ -746,7 +730,7 @@ ScreenManager:
                                         lines: 2
                                         box_radius: [0, 0, 24, 24]
                                         box_color: 1, 1, 1, .2
-                                        source: "images/school1.png"
+                                        source: "images/school2.png"
                                         size_hint: None, None
                                         size: "280dp", "200dp"
                                         box_color: 0, 0, 1, 1
@@ -771,7 +755,7 @@ ScreenManager:
                                         lines: 2
                                         box_radius: [0, 0, 24, 24]
                                         box_color: 1, 1, 1, .2
-                                        source: "images/school4.png"
+                                        source: "images/school2.png"
                                         size_hint: None, None
                                         size: "280dp", "200dp"
                                         box_color: 0, 0, 1, 1
@@ -795,7 +779,7 @@ ScreenManager:
                                         lines: 2
                                         box_radius: [0, 0, 24, 24]
                                         box_color: 1, 1, 1, .2
-                                        source: "images/school3.png"
+                                        source: "images/school2.png"
                                         size_hint: None, None
                                         size: "280dp", "200dp"
                                         box_color: 0, 0, 1, 1
@@ -971,7 +955,7 @@ ScreenManager:
 
         MDIconButton:
             icon: "plus-circle"
-            on_release: app.resourcename_dialog_pop()
+            on_release: app.myresourcename_dialog_pop()
             #pos_hint: {'center_x':0.9, 'center_y':0.2}
             
         MDLabel:
@@ -985,8 +969,24 @@ ScreenManager:
     height: "30dp"
     MDTextField:
         id:rsstxt
-        hint_text: "Enter Resource/Folder Name"
+        hint_text: "Folder Name"
         mode: "round"
+
+<ReasiurceobjName>
+    orientation: "vertical"
+    spacing: "10dp"
+    size_hint_y: None 
+    height: "60dp"
+    MDTextField:
+        id:fldntxt
+        hint_text: "File Name"
+        mode: "round"
+    
+    MDRaisedButton:
+        text: "Upload File"
+        md_bg_color: "blue"
+        pos_hint: {"center_x": .5, "center_y": .03}
+        on_release: app.open_file_manager()
 
 <AddactivityInt>
     orientation: "vertical"
