@@ -19,21 +19,25 @@ from kivymd.uix.dialog import MDDialog
 from kivy.properties import StringProperty
 from kivymd_extensions.sweetalert import SweetAlert
 from kivymd.uix.relativelayout import MDRelativeLayout
+import sqlite3
 from kivy.core.window import Window
 
 Window.size = (320, 680)
 
 
-mashuledb = mysql.connector.connect(
-    host= "localhost",
-    user= 'gideon',
-    passwd= 'gen@mic1',
-    database='Mashule',
-    auth_plugin='mysql_native_password'
-)
+mashuledb = sqlite3.connect('Mashule.db')
+    #host= "localhost",
+    #user= 'gideon',
+    #passwd= 'gen@mic1',
+    #database='Mashule',
+    #auth_plugin='mysql_native_password'
+#)
 
 mashulecursor = mashuledb.cursor()
 
+mashulecursor.execute( "CREATE TABLE IF NOT EXISTS Users ( id INTEGER PRIMARY KEY, name TEXT, password TEXT)")
+#mashulecursor.execute("INSERT INTO Users (name, password) VALUES ('Mash@Admin', 'gen@mic1')")
+mashulecursor.execute("""CREATE TABLE IF NOT EXISTS Schools (Id INTEGER PRIMARY KEY, user_id INTEGER, name TEXT, address TEXT, website TEXT, email TEXT, contact TEXT, category TEXT, level TEXT)""")
 class SignupDC(MDBoxLayout):
     pass
 
@@ -230,7 +234,7 @@ class MashuleApp(MDApp):
         regpassconcmp = self.root.ids.regpasscon.text
 
         if regpsscmp == regpassconcmp:
-            mashulecursor.execute('INSERT INTO Users (name, password) VALUES (%s,%s)',(regname, regpass))
+            mashulecursor.execute('INSERT INTO Users (name, password) VALUES (?,?)',(regname, regpass))
             mashuledb.commit()
             alert = SweetAlert(title="Registration Sucesfull",
                 text=f"{regname} Registered Successfully",
@@ -248,9 +252,9 @@ class MashuleApp(MDApp):
 
     def user_login(self, username, userpass):
 
-        mashulecursor.execute('SELECT * FROM Users where name=%s AND password=%s', (username, userpass))
+        mashulecursor.execute("SELECT * FROM Users where name=? AND password=?",(username, userpass))
         user = mashulecursor.fetchone()
-        
+
         if user:
             if username == 'Mash@Admin' and userpass == 'gen@mic1':
                 alert = SweetAlert(title="Admin login Succesfull",
@@ -280,7 +284,7 @@ class MashuleApp(MDApp):
 
     def add_school(self, schoolname, schooladress, schoolweb, schoolemail, schoolcontact, schoolcat, schoolLevel):       
 
-        mashulecursor.execute('INSERT INTO Schools (name, address, website, email, contact, category, level) VALUES (%s,%s,%s,%s,%s,%s,%s)',(schoolname, schooladress, schoolweb, schoolemail, schoolcontact, schoolcat, schoolLevel))
+        mashulecursor.execute('INSERT INTO Schools (name, address, website, email, contact, category, level) VALUES (?,?,?,?,?,?,?)',(schoolname, schooladress, schoolweb, schoolemail, schoolcontact, schoolcat, schoolLevel))
         mashuledb.commit()
         
         alert = SweetAlert(title="added succesfuly",
