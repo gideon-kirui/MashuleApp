@@ -995,14 +995,14 @@ ScreenManager:
                             orientation: 'vertical'
                             spacing: '10dp'
                             valign: 'top'
-                            MapView:
-                                lat:11
-                                lon:11
-                                double_tap_zoom:True
-                                zoom:5
-                                MapMarkerPopup:
-                                    lat:11
-                                    lon:11
+                            # MapView:
+                            #     lat:11
+                            #     lon:11
+                            #     double_tap_zoom:True
+                            #     zoom:5
+                            #     MapMarkerPopup:
+                            #         lat:11
+                            #         lon:11
                                         
                             
 

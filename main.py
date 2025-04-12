@@ -1,7 +1,6 @@
 from kivymd.app import MDApp
 import mysql.connector
 from kivy.lang.builder import Builder
-from kivy_garden.mapview import MapView, MapMarkerPopup
 from scrn_mng import screen_helper
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.filemanager import MDFileManager
